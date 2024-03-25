@@ -8,7 +8,7 @@ android {
     compileSdk 33  //很多朋友的SDK 是28 ！！！
 
     defaultConfig {
-        applicationId "com.sjl.binocularcamera"
+        applicationId "com.facesearch.binocularcamera"
         minSdkVersion 21
         targetSdk 30
         versionCode 1

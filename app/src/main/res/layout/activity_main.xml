@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:onClick="btnOpenCamera"
         android:text="打开双目摄像头进行搜索演示"
-        android:textSize="22sp"
+        android:textSize="18sp"
         android:layout_marginTop="55dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -27,7 +27,7 @@
         android:layout_marginTop="22dp"
         android:onClick="btnInsertFaceImages"
         android:text="导入测试人脸或自拍录入人脸"
-        android:textSize="21sp"
+        android:textSize="17sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btnOpen" />

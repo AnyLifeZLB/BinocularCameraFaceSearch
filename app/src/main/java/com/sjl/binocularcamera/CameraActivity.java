@@ -361,4 +361,5 @@ public class CameraActivity extends BaseActivity {
     public void btnSetting(View view) {
         startActivity(new Intent(this,CameraSetting.class));
     }
+
 }

@@ -88,12 +88,6 @@ class SearchNaviActivity : AppCompatActivity(){
                 }
             }
         }
-
     }
-
-
-
-
-
 
 }

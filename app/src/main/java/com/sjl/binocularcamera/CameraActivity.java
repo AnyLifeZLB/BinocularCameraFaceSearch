@@ -159,7 +159,11 @@ public class CameraActivity extends BaseActivity {
         // 2.各种参数的初始化设置
         SearchProcessBuilder faceProcessBuilder = new SearchProcessBuilder.Builder(getApplication())
                 .setLifecycleOwner(this)
+                .setNeedMultiValidate(false)          //是否需要筛选结果防止误识别，需要硬件CPU配置高，可以先尝试看看
                 .setThreshold(0.79f)            //阈值设置，范围限 [0.75 , 0.95] 识别可信度，也是识别灵敏度
+                .setNeedNirLiveness(false)           //是否需要红外活体能力，只有1:N 有
+                .setNeedRGBLiveness(false)            //是否需要普通RGB活体检测能力，只有1:N 有
+
                 //6. 所有的人脸都必须通过SDK 的API 插入到人脸管理目录，而不是File 文件放入到目录就行，SDK API 还会提取人脸特征操作
                 .setFaceLibFolder(CACHE_SEARCH_FACE_DIR)  //内部存储目录中保存N 个人脸图片库的目录
                 .setProcessCallBack(new SearchProcessCallBack() {

@@ -4,7 +4,7 @@
 
 # Android双目摄像头人脸搜索测试工具
 该Demo 参考github 项目BinocularCamera,同时演示自管理双目摄像头如何快速接入人脸搜索SDK
-目前RK 3288 测试每次搜索反应时间大约为2xx 毫秒，加入活体检测时间也会控制在300MS内
+目前RK 3X88 测试每次搜索反应时间大约为2xx 毫秒，加入活体检测时间也会控制在300MS内
 
 1. 支持双目(RGB,IR)摄像头同时预览
 2. 可作为测试工具检测双目摄像头是否正常打开
@@ -26,6 +26,6 @@
    FaceSearchEngine.Companion.getInstance().initSearchParams(faceProcessBuilder);
 6. 所有的人脸都必须通过SDK 的API 插入到人脸管理目录，而不是File 文件放入到目录就行，SDK API 还会提取人脸特征操作
 7. Demo 中有Assert 有250 张测试人脸；你可以在人脸管理页面中右上角通过自拍添加一张个人清晰人脸照进行测试验证
-8. 更多请查阅 https://github.com/AnyLifeZLB/FaceVerificationSDK 和 精简库 https://github.com/AnyLifeZLB/FaceSearchSDK_Android
+8. 更多请查阅精简库 https://github.com/AnyLifeZLB/FaceSearchSDK_Android
 9. 了解Demo 后还有问题需要定制解决请联系微信 18707611416 或邮件anylife.zlb@gmail.com
 10. 双目摄像头活体检测需要定制，Demo 暂时不接入

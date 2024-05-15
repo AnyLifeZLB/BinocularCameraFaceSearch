@@ -28,6 +28,8 @@ import java.util.Map;
 
 /**
  * 仅仅用最原始的方式预览摄像头数据，仅供参考，用户自行管理
+ * 可以同时预览前后摄像头，USB 摄像头等
+ * 不保证能预览所有的Android 设备，这部分代码暴露给用户自定义，不属于SDK 的部分
  *
  */
 public class CameraSurfaceView extends FrameLayout implements SurfaceHolder.Callback,
@@ -79,8 +81,6 @@ public class CameraSurfaceView extends FrameLayout implements SurfaceHolder.Call
 
 
 
-
-
     public interface OnPreviewListener {
         void onPreviewFrame(byte[] data,int degree);
     }
@@ -96,6 +96,7 @@ public class CameraSurfaceView extends FrameLayout implements SurfaceHolder.Call
 
     /**
      * 创建预览view
+     *
      */
     public void createPreview() {
         surfaceView = new SurfaceView(mContext);

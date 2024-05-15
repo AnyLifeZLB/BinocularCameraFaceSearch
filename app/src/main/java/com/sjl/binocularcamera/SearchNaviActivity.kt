@@ -78,7 +78,7 @@ class SearchNaviActivity : AppCompatActivity(){
             if (subFaceFiles != null) {
                 for (index in subFaceFiles.indices) {
                     //插入照片
-                    FaceSearchImagesManger.c.getInstance(context)?.insertOrUpdateFaceImage(
+                    FaceSearchImagesManger.IL1Iii.getInstance(context)?.insertOrUpdateFaceImage(
                         getBitmapFromAsset(
                             assetManager,
                             subFaceFiles[index]
@@ -88,12 +88,6 @@ class SearchNaviActivity : AppCompatActivity(){
                 }
             }
         }
-
     }
-
-
-
-
-
 
 }

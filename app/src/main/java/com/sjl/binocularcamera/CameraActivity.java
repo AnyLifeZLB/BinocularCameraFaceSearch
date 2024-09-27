@@ -7,6 +7,8 @@ import static com.ai.face.faceSearch.search.SearchProcessTipsCode.NO_LIVE_FACE;
 import static com.ai.face.faceSearch.search.SearchProcessTipsCode.NO_MATCHED;
 import static com.ai.face.faceSearch.search.SearchProcessTipsCode.THRESHOLD_ERROR;
 import static com.sjl.binocularcamera.FaceSearchApplication.CACHE_SEARCH_FACE_DIR;
+
+import com.ai.face.faceSearch.utils.FaceSearchResult;
 import com.bumptech.glide.Glide;
 
 import android.content.Intent;
@@ -17,9 +19,9 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.hardware.Camera;
 import android.os.Environment;
+import android.util.ArrayMap;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -27,15 +29,12 @@ import android.widget.Toast;
 import com.ai.face.faceSearch.search.FaceSearchEngine;
 import com.ai.face.faceSearch.search.SearchProcessBuilder;
 import com.ai.face.faceSearch.search.SearchProcessCallBack;
-import com.ai.face.faceSearch.utils.RectLabel;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.sjl.binocularcamera.util.BitmapUtils;
 import com.sjl.binocularcamera.util.CameraHelper;
 import com.sjl.binocularcamera.widget.CameraSurfaceView;
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -61,7 +60,6 @@ public class CameraActivity extends BaseActivity {
     protected int getLayoutId() {
         return R.layout.activity_camera;
     }
-
 
 
 
@@ -160,8 +158,8 @@ public class CameraActivity extends BaseActivity {
         SearchProcessBuilder faceProcessBuilder = new SearchProcessBuilder.Builder(getApplication())
                 .setLifecycleOwner(this)
                 .setNeedMultiValidate(false)          //是否需要筛选结果防止误识别，需要硬件CPU配置高，可以先尝试看看
-                .setThreshold(0.85f)            //阈值设置，范围限 [0.75 , 0.95] 识别可信度，也是识别灵敏度
-                .setNeedNirLiveness(false)           //是否需要红外活体能力，只有1:N 有
+                .setThreshold(0.81f)                  //阈值设置，范围限 [0.75 , 0.95] 识别可信度，也是识别灵敏度
+                .setNeedNirLiveness(false)            //是否需要红外活体能力，只有1:N 有
                 .setNeedRGBLiveness(false)            //是否需要普通RGB活体检测能力，只有1:N 有
 
                 //6. 所有的人脸都必须通过SDK 的API 插入到人脸管理目录，而不是File 文件放入到目录就行，SDK API 还会提取人脸特征操作
@@ -182,21 +180,43 @@ public class CameraActivity extends BaseActivity {
                         }
                     }
 
+
+
+
+                    /**
+                     * onSimilarMap 的拓展，多了rect 和faceBitmap
+                     *
+                     * @param faceSearchResults 搜索结果
+                     *         Rect rect;                人脸的坐标
+                     *         String faceName;          搜索匹配到的人脸的图片名字
+                     *         float faceScore;          搜索匹配到的人脸相似度值
+                     *         final Bitmap faceBitmap   检测到的人脸（坐标rect圈出来的图像Bitmap）
+                     *
+                     * @param bitmap 摄像头采集的当前帧图像
+                     */
+                    @Override
+                    public void onFaceMatched(List<FaceSearchResult> faceSearchResults, Bitmap bitmap) {
+//                        binding.graphicOverlay.drawRect(faceSearchResults, cameraXFragment);
+                    }
+
+
+                    /**
+                     * 大于设置阈值的搜索结果，长的像的都会搜索出来
+                     * @param arrayMap 大于设置阈值对应的人脸库中的图片ID和得分
+                     * @param bitmap 摄像头的画面帧数据
+                     */
+                    @Override
+                    public void onSimilarMap(ArrayMap<String, Float> arrayMap, Bitmap bitmap) {
+                        //大于setThreshold 的都在这 arrayMap里面，Key 是图片ID，Value 是相似度的值
+
+                    }
+
+
                     @Override
                     public void onProcessTips(int i) {
                         showPrecessTips(i);
                     }
-                    //坐标框和对应的 搜索匹配到的图片标签
-                    //人脸检测成功后画白框，此时还没有标签字段Label 字段为空
-                    //人脸搜索匹配成功后白框变绿框，并标记出对应的Label
-                    //部分设备会有左右图像翻转问题
-                    @Override
-                    public void onFaceMatched(List<RectLabel> rectLabels) {
-//                        binding.graphicOverlay.drawRect(rectLabels, cameraXFragment);
-//                        if(!rectLabels.isEmpty()) {
-//                            tips.setText("");
-//                        }
-                    }
+
 
                     @Override
                     public void onLog(String log) {

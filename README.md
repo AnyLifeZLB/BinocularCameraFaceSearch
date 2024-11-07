@@ -30,6 +30,6 @@
    FaceSearchEngine.Companion.getInstance().initSearchParams(faceProcessBuilder);
 6. 所有的人脸都必须通过SDK 的API 插入到人脸管理目录，而不是File 文件放入到目录就行，SDK API 还会提取人脸特征操作
 7. Demo 中有Assert 有250 张测试人脸；你可以在人脸管理页面中右上角通过自拍添加一张个人清晰人脸照进行测试验证
-8. 更多请查阅精简库 https://github.com/AnyLifeZLB/FaceSearchSDK_Android
+8. 更多请查阅人脸识别完整SDK：https://github.com/AnyLifeZLB/FaceVerificationSDK
 9. 了解Demo 后还有问题需要定制解决请联系微信 18707611416 或邮件anylife.zlb@gmail.com
 10. 双目摄像头活体检测需要定制，Demo 暂时不接入
